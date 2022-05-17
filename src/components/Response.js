@@ -1,12 +1,11 @@
+import { Box } from "@mui/system";
+import Typography from "@mui/material/Typography";
+
 function Responses() {
   return (
-    <div className="Responses">
-      <br></br>
-      <br></br>
-
-      <h2>Responses</h2>
-      <div className="ResponseBox"></div>
-    </div>
+    <Box>
+      <Typography variant="h4">Responses</Typography>
+    </Box>
   );
 }
 export default Responses;
