@@ -4,6 +4,7 @@ import { Box } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
+import env from "./common/config";
 
 import axios from "axios";
 import { Configuration, OpenAIApi } from "openai";
@@ -23,7 +24,7 @@ function App() {
         },
         {
           headers: {
-            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+            Authorization: `Bearer ${env.REACT_APP_OPENAI_API_KEY}`,
           },
         }
       );
