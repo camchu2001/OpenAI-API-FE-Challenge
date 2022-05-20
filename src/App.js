@@ -1,13 +1,36 @@
-import logo from "./logo.svg";
 import Responses from "./components/Response";
 import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import { useState } from "react";
+
+import axios from "axios";
+import { Configuration, OpenAIApi } from "openai";
 
 function App() {
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const [prompt, setPrompt] = useState("");
+  const [response, setResponse] = useState("");
+
+  const getResponse = async (e) => {
+    const url = "https://api.openai.com/v1/engines/text-curie-001/completions";
+
+    try {
+      const response = await axios.post(
+        url,
+        {
+          prompt: "Tell me a joke",
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${process.env.REACT_APP_OPENAI_API_KEY}`,
+          },
+        }
+      );
+      console.log(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -24,9 +47,18 @@ function App() {
           sx={{ width: 500 }}
         />
         <Box sx={{ display: "flex", justifyContent: "flex-end", my: 1 }}>
-          <Button color="primary" sx={{ width: 100 }} variant="contained">
+          <Button
+            onClick={getResponse}
+            color="primary"
+            sx={{ width: 100 }}
+            variant="contained"
+          >
             Submit
           </Button>
+        </Box>
+
+        <Box>
+          <Typography variant="h4">Responses</Typography>
         </Box>
         <Responses />
       </Box>
