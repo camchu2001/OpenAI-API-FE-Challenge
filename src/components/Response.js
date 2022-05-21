@@ -10,6 +10,8 @@ function Responses({ prompt, response }) {
         width: 500,
         height: 150,
         borderRadius: 2,
+        marginTop: 1,
+        marginBottom: 2,
       }}
     >
       <Box sx={{ padding: 2 }}>
@@ -21,7 +23,6 @@ function Responses({ prompt, response }) {
           <Typography variant="p">{prompt}</Typography>
         </Box>
       </Box>
-
       <Box sx={{ padding: 2 }}>
         <Typography sx={{ fontWeight: "bold" }} variant="p">
           Response:

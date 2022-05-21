@@ -15,6 +15,8 @@ class OpenAIApi {
     try {
       const response = await this.client.post("", {
         prompt: "Tell me a joke",
+        max_tokens: 100,
+        n: 1,
       });
       console.log(response.data);
       return response.data;

@@ -9,11 +9,13 @@ import openAIApi from "./api/openaiapi";
 
 function App() {
   const [prompt, setPrompt] = useState("");
-  const [completion, setCompletion] = useState("");
+  const [completions, setCompletions] = useState([]);
 
   const submitForm = async (e) => {
     try {
       const response = await openAIApi.getCompletion();
+      console.log(response.choices[0].text);
+      setCompletions([...completions, response.choices[0].text]);
     } catch (error) {
       console.log(error);
     }
@@ -42,11 +44,12 @@ function App() {
             Submit
           </Button>
         </Box>
-
         <Box>
           <Typography variant="h4">Responses</Typography>
         </Box>
-        <Responses />
+        {completions.map((completion) => {
+          return <Responses prompt="Tell me a joke" response = {completion}/>;
+        })}
       </Box>
     </div>
   );
