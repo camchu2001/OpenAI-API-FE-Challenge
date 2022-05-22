@@ -3,14 +3,17 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import openAIApi from "./api/openaiapi";
 
 function App() {
   const [prompt, setPrompt] = useState("");
   const [completions, setCompletions] = useState([]);
-
+  useEffect(() => {
+    const saved = localStorage.getItem("data");
+    setCompletions(JSON.parse(saved));
+  }, []);
   const submitForm = async (e) => {
     try {
       if (!prompt) {
@@ -28,6 +31,7 @@ function App() {
       updatedCompletions.sort((a, b) =>
         a.created > b.created ? -1 : b.created > a.created ? 1 : 0
       );
+      localStorage.setItem("data", JSON.stringify(updatedCompletions));
 
       setCompletions(updatedCompletions);
     } catch (error) {
