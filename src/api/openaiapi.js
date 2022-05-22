@@ -1,5 +1,6 @@
 import axios from "axios";
 import env from "../common/config";
+import App from "../App";
 
 class OpenAIApi {
   constructor() {
@@ -11,10 +12,10 @@ class OpenAIApi {
     });
   }
 
-  async getCompletion() {
+  async getCompletion(prompt) {
     try {
       const response = await this.client.post("", {
-        prompt: "Tell me a joke",
+        prompt,
         max_tokens: 100,
         n: 1,
       });

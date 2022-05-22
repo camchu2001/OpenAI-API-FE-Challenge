@@ -1,14 +1,14 @@
 import { Box } from "@mui/system";
 import Typography from "@mui/material/Typography";
 
-function Responses({ prompt, response }) {
+function Responses({ promptCompletion }) {
   return (
     <Box
       sx={{
         borderColor: "black",
         bgcolor: "#eeeeee",
         width: 500,
-        height: 150,
+        height: 200,
         borderRadius: 2,
         marginTop: 1,
         marginBottom: 2,
@@ -16,11 +16,11 @@ function Responses({ prompt, response }) {
     >
       <Box sx={{ padding: 2 }}>
         <Typography sx={{ fontWeight: "bold" }} variant="p">
-          Prompt:
+          Prompt:{" "}
         </Typography>
 
         <Box sx={{ display: "inline" }}>
-          <Typography variant="p">{prompt}</Typography>
+          <Typography variant="p">{promptCompletion.prompt}</Typography>
         </Box>
       </Box>
       <Box sx={{ padding: 2 }}>
@@ -28,7 +28,7 @@ function Responses({ prompt, response }) {
           Response:
         </Typography>
         <Box sx={{ display: "inline" }}>
-          <Typography variant="p">{response}</Typography>
+          <Typography variant="p">{promptCompletion.completion}</Typography>
         </Box>
       </Box>
     </Box>

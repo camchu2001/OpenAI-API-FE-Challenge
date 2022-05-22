@@ -13,9 +13,15 @@ function App() {
 
   const submitForm = async (e) => {
     try {
-      const response = await openAIApi.getCompletion();
-      console.log(response.choices[0].text);
-      setCompletions([...completions, response.choices[0].text]);
+      if (!prompt) {
+        throw new Error("Empty Prompt!");
+      }
+      const response = await openAIApi.getCompletion(prompt);
+      const updatedCompletions = [
+        ...completions,
+        { prompt: prompt, completion: response.choices[0].text },
+      ];
+      setCompletions(updatedCompletions);
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +34,9 @@ function App() {
           <Typography variant="h3">Fun With AI</Typography>
         </Box>
         <TextField
-          id="outlined-multiline-flexible"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          id="input"
           label="Enter Prompt"
           multiline
           rows={10}
@@ -48,7 +56,7 @@ function App() {
           <Typography variant="h4">Responses</Typography>
         </Box>
         {completions.map((completion) => {
-          return <Responses prompt="Tell me a joke" response = {completion}/>;
+          return <Responses promptCompletion={completion} />;
         })}
       </Box>
     </div>
