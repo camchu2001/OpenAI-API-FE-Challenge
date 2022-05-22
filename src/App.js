@@ -3,17 +3,24 @@ import Button from "@mui/material/Button";
 import { Box } from "@mui/system";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import openAIApi from "./api/openaiapi";
+import suggestions from "./api/openaiSuggestion";
 
 function App() {
   const [prompt, setPrompt] = useState("");
   const [completions, setCompletions] = useState([]);
+
   useEffect(() => {
     const saved = localStorage.getItem("data");
-    setCompletions(JSON.parse(saved));
+    setCompletions(saved ? JSON.parse(saved) : []);
   }, []);
+
   const submitForm = async (e) => {
     try {
       if (!prompt) {
@@ -38,6 +45,9 @@ function App() {
       console.log(error);
     }
   };
+  const onChangeSelectSuggestion = (e) => {
+    setPrompt(e.target.value);
+  };
 
   return (
     <div className="App">
@@ -54,11 +64,29 @@ function App() {
           rows={10}
           sx={{ width: 500 }}
         />
-        <Box sx={{ display: "flex", justifyContent: "flex-end", my: 1 }}>
+
+        <Box sx={{ display: "flex", justifyContent: "space-between", my: 1 }}>
+          <FormControl sx={{ width: 130 }}>
+            <InputLabel id="suggest">Suggestion</InputLabel>
+            <Select
+              onChange={onChangeSelectSuggestion}
+              id="suggest"
+              label="Suggestion"
+            >
+              {suggestions.map((suggestion) => {
+                return (
+                  <MenuItem value={suggestion.prompt}>
+                    {suggestion.name}
+                  </MenuItem>
+                );
+              })}
+            </Select>
+          </FormControl>
+
           <Button
             onClick={submitForm}
             color="primary"
-            sx={{ width: 100 }}
+            sx={{ width: 120 }}
             variant="contained"
           >
             Submit
