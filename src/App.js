@@ -19,8 +19,16 @@ function App() {
       const response = await openAIApi.getCompletion(prompt);
       const updatedCompletions = [
         ...completions,
-        { prompt: prompt, completion: response.choices[0].text },
+        {
+          prompt: prompt,
+          completion: response.choices[0].text,
+          created: response.created,
+        },
       ];
+      updatedCompletions.sort((a, b) =>
+        a.created > b.created ? -1 : b.created > a.created ? 1 : 0
+      );
+
       setCompletions(updatedCompletions);
     } catch (error) {
       console.log(error);
@@ -56,7 +64,9 @@ function App() {
           <Typography variant="h4">Responses</Typography>
         </Box>
         {completions.map((completion) => {
-          return <Responses promptCompletion={completion} />;
+          return (
+            <Responses key={completion.created} promptCompletion={completion} />
+          );
         })}
       </Box>
     </div>
