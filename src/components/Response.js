@@ -8,7 +8,6 @@ function Responses({ promptCompletion }) {
         borderColor: "black",
         bgcolor: "#eeeeee",
         width: 500,
-        height: 200,
         borderRadius: 2,
         marginTop: 1,
         marginBottom: 2,
