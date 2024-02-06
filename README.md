@@ -1,4 +1,4 @@
-# Shopify Front-end Intern Challenge Fall 2022
+# Open AI API
 This is a front-end application that sends user's prompts to the OpenAI API and display the responses in a list.
 
 ## Tech Used
