@@ -1,4 +1,4 @@
-# Open AI API
+# Open AI API Frontend Challenge
 This is a front-end application that sends user's prompts to the OpenAI API and display the responses in a list.
 
 ## Tech Used
